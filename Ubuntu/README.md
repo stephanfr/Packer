@@ -18,6 +18,7 @@ ubuntu-rpi-packer-proxmox.json - creates a VM which is configured to then create
 raspberry pi images with customizations using a builder that executes the image 
 using qemu in the x86 VM
 
+The Raspberry Pi building specification uses the packer-arm-builder from https://github.com/mkaczanowski/packer-builder-arm  This is a fantastic tool for customizing rspberry pi images prior to flshing to a microSD card for booting the Pi.
 
 Below are values currently empty in the variable files which will need to
 be assigned for the spec and scripts to work properly.

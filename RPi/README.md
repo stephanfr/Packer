@@ -1,7 +1,7 @@
 # Raspberry Pi Packer Specifications
  
  
-Packer specification and scripts for generating customized Raspberry Pi Images.  This repository should be added to the 'packer-builder-arm' directory created in a VM generated using the ubuntu-rpi-packer-proxmox.json specification found in the Packer/Ubuntu repository.  The packer executable itself should be placed in this directpory as well.
+Packer specification and scripts for generating customized Raspberry Pi Images.  This repository should be merged to the 'packer-builder-arm' directory created in a VM generated using the ubuntu-rpi-packer-proxmox.json specification found in the Packer/Ubuntu repository.  The packer executable itself should be placed in this directpory as well.
 
 Below are values currently empty in the variable files which will need to
 be assigned for the spec and scripts to work properly.

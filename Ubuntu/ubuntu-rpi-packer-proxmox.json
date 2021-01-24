@@ -1,0 +1,103 @@
+{
+	"builders": [
+		{
+			"type": "proxmox",
+			"proxmox_url": "https://{{user `proxmox_host`}}:{{user `proxmox_api_port`}}/api2/json",
+			"insecure_skip_tls_verify": true,
+			"username": "{{user `proxmox_api_user`}}",
+			"password": "{{user `proxmox_api_password`}}",
+
+			"vm_name": "{{user `template_name`}}",
+			"vm_id": "{{ user `vmid` }}",
+			"node": "{{user `proxmox_node_name`}}",
+			"cores": "{{ user `cores` }}",
+			"sockets": "{{ user `sockets` }}",
+			"memory": "{{ user `memory` }}",
+			"cpu_type": "host",
+			"os": "l26",
+			"vga":{
+                "type": "qxl",
+                "memory": 32
+            },
+			"network_adapters": [
+				{
+					"model": "virtio",
+					"bridge": "vmbr0"
+				}
+			],
+			"disks": [
+				{
+					"type": "scsi",
+					"disk_size": "{{ user `disk_size`}}",
+					"storage_pool": "{{user `datastore`}}",
+					"storage_pool_type": "{{user `datastore_type`}}",
+					"format": "raw",
+					"cache_mode": "writeback"
+				}
+			],
+
+			"ssh_timeout": "120m",
+			"ssh_password": "{{ user `ssh_password` }}",
+			"ssh_username": "{{ user `ssh_username` }}",
+
+			"qemu_agent": true,
+			"unmount_iso": true,
+
+            "iso_urls": [
+                "{{user `iso_path`}}/{{user `iso_name`}}",
+                "{{user `iso_url`}}"
+            ],
+            "iso_checksum": "{{user `iso_checksum_type`}}:{{user `iso_checksum`}}",
+            "iso_storage_pool": "{{ user `iso_storage_pool` }}",
+            "http_directory": "./http",
+			"template_description": "{{ user `template_description` }}",
+
+			"boot_wait": "5s",
+            "boot_command": [
+                "<esc><wait><esc><wait><f6><wait><esc><wait>",
+                "<bs><bs><bs><bs><bs>",
+                "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
+                "--- <enter>"
+            ]
+		}
+	],
+	"provisioners": [
+        {
+        	"type": "shell",
+        	"inline": [ "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done" ]
+        },
+        {
+            "type": "file",
+            "source": "uploads",
+            "destination": "/tmp"
+        },
+        {
+        	"type": "shell",
+        	"inline": [ "chmod -R 777 /tmp/uploads" ]
+        },
+        {
+            "environment_vars": [
+                "DEBIAN_FRONTEND=noninteractive",
+                "UPDATE={{user `update`}}",
+                "DISABLE_IPV6={{user `disable_ipv6`}}",
+                "SSH_USERNAME={{user `ssh_username`}}",
+                "SSH_PASSWORD={{user `ssh_password`}}",
+                "http_proxy={{user `http_proxy`}}",
+                "https_proxy={{user `https_proxy`}}",
+                "no_proxy={{user `no_proxy`}}",
+                "DEV_USERNAME={{user `dev_username`}}",
+                "DEV_PASSWORD={{user `dev_password`}}",
+                "INSTALL_VSCODE_IDE={{user `install_vscode_ide`}}",
+                "UBUNTU_BUILD_NAME={{user `ubuntu_build_name`}}"
+            ],
+            "execute_command": "echo '{{user `ssh_password`}}'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "scripts": [
+                "script/mate_desktop.sh",
+	            "script/setup_dev_user.sh",
+                "script/setup_rpi_packer.sh",
+                "script/cleanup.sh"
+            ],
+            "type": "shell"
+        }
+	]
+}

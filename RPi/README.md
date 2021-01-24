@@ -13,12 +13,15 @@ Values to provide :
     "dev_username" - if provided, development username
     "dev_password" - initial password, will be prompted to change on login
     "new_pi_password" - if provided, new password for pi user
+    "nfs_copy_location" - an NFS mount to which the completed image will be copied
 
 The script assumes that there will be a directory named 'uploads' in the same
 directory holding the packer json file and in the uploads directory.  Optionally,
 if a file named 'rsa.pub' which holds the public key for the development
 user who will be connecting to the VM is present in that directory, it will be
 added as an ssh key for the user.  The 'uploads' directory must be created or the script will fail.
+
+There is a post processor which will copy the image off the VM to a NFS location such that it can be picked up and flashed to an SD.  If you do not wish to copy the image, just remove the post-processor.
 
 The image specific values for a specific raspios version can be found in json files
 with names 'raspios_label-xx-xx-x-version.json'.

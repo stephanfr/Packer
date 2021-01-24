@@ -1,4 +1,4 @@
-# PackerScripts
+# Ubuntu Packer Specifications
  
  
 Packer scripts for generating Proxmox templates for Ubuntu 20.04 Live Server.
@@ -51,6 +51,9 @@ added as an ssh key for the user.
 
 The image specific values for a specific Ubuntu version can be found in json files
 with names 'ubuntu-xx-xx-x-version.json'.
+
+The Packer .exe is a single file, I just drop it into the /Packer/Ubuntu directory
+and use the app for there.  These scripts were built with Packer v1.6.6.
 
 
 To build a template, use following command line should look something like (make the correct subsitutions for your environment) :

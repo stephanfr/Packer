@@ -1,6 +1,6 @@
 {
   "variables": {
-    "image_file_url" : "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-01-12/2021-01-11-raspios-buster-armhf-lite.zip",
+    "image_file_url" : "",
     "wifi_ssid" : "",
     "wifi_password" : "",
     "output_image_path" : "raspios-armhf.img",

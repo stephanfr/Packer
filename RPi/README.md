@@ -11,7 +11,7 @@ Values to provide :
     "wifi_ssid" - if provided, the SSID of the wifi network
     "wifi_password" - if provided, the password for the wifi network, if not provided the network is treated as open
     "dev_username" - if provided, development username
-    "dev_password" - initial password, will be prompted to change on login
+    "dev_password" - initial password
     "new_pi_password" - if provided, new password for pi user
     "nfs_copy_location" - an NFS mount to which the completed image will be copied
 

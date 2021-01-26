@@ -8,7 +8,7 @@ be assigned for the spec and scripts to work properly.
 
 Values to provide :
 
-    "wifi_name" - if provided, the SSID of the wifi network
+    "wifi_ssid" - if provided, the SSID of the wifi network
     "wifi_password" - if provided, the password for the wifi network, if not provided the network is treated as open
     "dev_username" - if provided, development username
     "dev_password" - initial password, will be prompted to change on login
@@ -31,7 +31,7 @@ and use the app for there.  These scripts were built with Packer v1.6.6.
 
 To build a template, use following command line should look something like (make the correct subsitutions for your environment) :
 
-sudo packer build -var 'wifi_name=ssid' -var 'wifi_password=??????' -var 'dev_username=dev' -var 'dev_password=password' -var 'new_pi_password=newpwd' -var-file raspios_lite_armhf-2021-01-12-version.json raspios-lite-armhf.json
+sudo packer build -var 'wifi_ssid=ssid' -var 'wifi_password=??????' -var 'dev_username=dev' -var 'dev_password=password' -var 'new_pi_password=newpwd' -var-file raspios_lite_armhf-2021-01-12-version.json raspios-lite-armhf.json
 
 Since this script uses a qemu builder, it must be run with elevated privileges.
 

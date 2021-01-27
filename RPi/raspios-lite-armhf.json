@@ -65,7 +65,8 @@
             "WIFI_PASSWORD={{user `wifi_password`}}",
             "NEW_PI_PASSWORD={{user `new_pi_password`}}",
             "DEV_USERNAME={{user `dev_username`}}",
-            "DEV_PASSWORD={{user `dev_password`}}"
+            "DEV_PASSWORD={{user `dev_password`}}",
+            "SSH_KEY_FILENAME={{user `ssh_key_filename`}}"
         ],
             "execute_command": "echo '{{user `ssh_password`}}'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
             "scripts": [

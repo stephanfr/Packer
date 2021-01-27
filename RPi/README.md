@@ -10,9 +10,10 @@ Values to provide :
 
     "wifi_ssid" - if provided, the SSID of the wifi network
     "wifi_password" - if provided, the password for the wifi network, if not provided the network is treated as open
-    "dev_username" - if provided, development username
+    "dev_username" - if provided, development username; password must be changed on first login
     "dev_password" - initial password
     "new_pi_password" - if provided, new password for pi user
+    "ssh_key_filename" - filename for public key to be copied from the upload folder; defaults to "id_rsa.pub"
     "nfs_copy_location" - an NFS mount to which the completed image will be copied
 
 The script assumes that there will be a directory named 'uploads' in the same

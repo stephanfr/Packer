@@ -15,6 +15,8 @@ Values to provide :
     "new_pi_password" - if provided, new password for pi user
     "ssh_key_filename" - filename for public key to be copied from the upload folder; defaults to "id_rsa.pub"
     "nfs_copy_location" - an NFS mount to which the completed image will be copied
+    "cmake_url" - URL for the version of CMake to download, defaults to URL for CMake 3.19.4
+    "cmake_version" - version id of CMake to build, defaults to CMake version 3.19.4
 
 The script assumes that there will be a directory named 'uploads' in the same
 directory holding the packer json file and in the uploads directory.  Optionally,

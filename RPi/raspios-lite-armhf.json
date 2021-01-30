@@ -10,7 +10,9 @@
     "dev_username" : "",
     "dev_password" : "",
     "ssh_key_filename" : "id_rsa.pub",
-    "nfs_copy_location" : "nas:/mnt/Primary/share/RPiImages"
+    "nfs_copy_location" : "nas:/mnt/Primary/share/RPiImages",
+    "cmake_url" : "https://cmake.org/files/v3.19/cmake-3.19.4.tar.gz",
+    "cmake_version" : "cmake-3.19.4"
   },
   "builders": [{
     "type": "arm",
@@ -66,12 +68,15 @@
             "NEW_PI_PASSWORD={{user `new_pi_password`}}",
             "DEV_USERNAME={{user `dev_username`}}",
             "DEV_PASSWORD={{user `dev_password`}}",
-            "SSH_KEY_FILENAME={{user `ssh_key_filename`}}"
+            "SSH_KEY_FILENAME={{user `ssh_key_filename`}}",
+            "CMAKE_URL={{user `cmake_url`}}",
+            "CMAKE_VERSION={{user `cmake_version`}}"
         ],
             "execute_command": "echo '{{user `ssh_password`}}'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
             "scripts": [
                 "scripts/setup-wifi.sh",
                 "scripts/setup-dev-user.sh",
+                "scripts/dev-tools-base.sh",
                 "scripts/change_pi_password.sh"
                 ]
         

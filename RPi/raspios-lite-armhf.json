@@ -20,9 +20,9 @@
     "file_checksum_url": "{{user `image_file_url`}}.sha256",
     "file_checksum_type": "sha256",
     "file_target_extension": "zip",
-    "image_build_method": "reuse",
+    "image_build_method": "resize",
     "image_path": "{{user `output_image_path`}}",
-    "image_size": "2G",
+    "image_size": "4G",
     "image_type": "dos",
     "image_partitions": [
       {
@@ -77,7 +77,7 @@
                 "scripts/setup-wifi.sh",
                 "scripts/setup-dev-user.sh",
                 "scripts/dev-tools-base.sh",
-                "scripts/change_pi_password.sh"
+                "scripts/change-pi-password.sh"
                 ]
         
     }],

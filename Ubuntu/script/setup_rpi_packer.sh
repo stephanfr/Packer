@@ -9,6 +9,9 @@ apt-get install -yq e2fsprogs
 apt-get install -yq dosfstools
 apt-get install -yq libarchive-tools
 apt-get install -yq nfs-common
+apt-get install -yq parted
+apt-get install -yq e2fsprogs
+apt-get install -yq qemu-utils
 
 cd /tmp
 wget https://releases.hashicorp.com/packer/1.6.6/packer_1.6.6_linux_amd64.zip

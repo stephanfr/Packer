@@ -7,6 +7,7 @@ apt-get install -y apt-transport-https ca-certificates gnupg software-properties
 
 apt-get update
 
+apt-get install -y libssl-dev
 apt-get install -y curl
 apt-get install -y python3
 apt-get install -y python3-dev
@@ -24,6 +25,6 @@ cd cmake
 wget ${CMAKE_URL}
 tar -xvzf ${CMAKE_VERSION}.tar.gz
 cd ${CMAKE_VERSION}/
-sudo ./bootstrap
-sudo make
-sudo make install
+./bootstrap
+make
+make install

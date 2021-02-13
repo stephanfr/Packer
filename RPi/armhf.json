@@ -12,7 +12,8 @@
     "ssh_key_filename" : "id_rsa.pub",
     "nfs_copy_location" : "nas:/mnt/Primary/share/RPiImages",
     "cmake_url" : "https://cmake.org/files/v3.19/cmake-3.19.4.tar.gz",
-    "cmake_version" : "cmake-3.19.4"
+    "cmake_version" : "cmake-3.19.4",
+    "pigpio_url" : "https://github.com/joan2937/pigpio/archive/master.zip"
   },
   "builders": [{
     "type": "arm",
@@ -43,8 +44,8 @@
       }
     ],
     "image_chroot_env": ["PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"],
-    "qemu_binary_source_path": "/usr/bin/qemu-aarch64-static",
-    "qemu_binary_destination_path": "/usr/bin/qemu-aarch64-static"
+    "qemu_binary_source_path": "/usr/bin/qemu-arm-static",
+    "qemu_binary_destination_path": "/usr/bin/qemu-arm-static"
   }],
   "provisioners": [
     {
@@ -70,7 +71,8 @@
             "DEV_PASSWORD={{user `dev_password`}}",
             "SSH_KEY_FILENAME={{user `ssh_key_filename`}}",
             "CMAKE_URL={{user `cmake_url`}}",
-            "CMAKE_VERSION={{user `cmake_version`}}"
+            "CMAKE_VERSION={{user `cmake_version`}}",
+            "PIGPIO_URL={{user `pigpio_url`}}"
         ],
             "execute_command": "echo '{{user `ssh_password`}}'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
             "scripts": [
@@ -79,7 +81,6 @@
                 "scripts/dev-tools-base.sh",
                 "scripts/change-pi-password.sh"
                 ]
-        
     }],
     "post-processors": [
     {

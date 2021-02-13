@@ -24,4 +24,7 @@ cd /home/$DEV_USERNAME/packer-builder-arm
 sudo -u $DEV_USERNAME go mod download
 sudo -u $DEV_USERNAME go build
 
+cd /tmp
+git clone https://github.com/stephanfr/Packer.git
+rsync -a /tmp/Packer/RPi/ /home/$DEV_USERNAME/packer-builder-arm/
 

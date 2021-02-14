@@ -22,6 +22,9 @@ apt-get install -y libtool
 apt-get install -y autoconf
 apt-get install -y automake
 apt-get install -y git
+apt-get install -y clang
+apt-get install -y clang-format
+apt-get install -y clang-tidy
 
 
 #

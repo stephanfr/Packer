@@ -27,6 +27,13 @@ apt-get install -y clang-format
 apt-get install -y clang-tidy
 
 
+
+
+if [ "$CPU_ARCH" == "ARMHF" ]; then
+    export CFLAGS="-D_FILE_OFFSET_BITS=64"
+    export CXXFLAGS="-D_FILE_OFFSET_BITS=64"
+fi
+
 #
 #   Make CMake.  The raspbian repos have old versions and we need at least 3.16 for VS Code
 #       This will run a paralell make assuming 2 cores.  If more are available, bump
@@ -43,8 +50,6 @@ wget ${CMAKE_URL}
 tar -xzf ${CMAKE_VERSION}.tar.gz
 cd ${CMAKE_VERSION}/
 
-export CFLAGS="-D_FILE_OFFSET_BITS=64"
-export CXXFLAGS="-D_FILE_OFFSET_BITS=64"
 export CMAKE_BUILD_PARALLEL_LEVEL=3
 
 ./bootstrap --parallel=3
@@ -61,7 +66,7 @@ if [ ! -z "$PIGPIO_URL" ]; then
     cd /tmp
     mkdir pigpio
     cd pigpio
-    wget https://github.com/joan2937/pigpio/archive/master.zip
+    wget ${PIGPIO_URL}
     unzip master.zip
     cd pigpio-master
     make -j3
@@ -69,5 +74,37 @@ if [ ! -z "$PIGPIO_URL" ]; then
     
 fi
 
+
+#
+#   Google Test and Google Mock
+#
+
+if [ ! -z "$GOOGLETEST_URL" ]; then
+
+    cd /tmp
+    git clone ${GOOGLETEST_URL}
+    cd googletest
+    mkdir build
+    cd build
+    cmake ..
+    make
+    make install    # Install in /usr/local/ by default
+    
+fi
+
+
+#
+#   Finally, Catch2 - I prefer it to GoogleTest in general
+#
+
+if [ ! -z "$CATCH2_URL" ]; then
+
+    cd /tmp
+    git clone https://github.com/catchorg/Catch2.git
+    cd Catch2
+    cmake -Bbuild -H. -DBUILD_TESTING=OFF
+    cmake --build build/ --target install
+
+fi
 
 

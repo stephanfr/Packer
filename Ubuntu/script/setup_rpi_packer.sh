@@ -25,6 +25,6 @@ sudo -u $DEV_USERNAME go mod download
 sudo -u $DEV_USERNAME go build
 
 cd /tmp
-git clone https://github.com/stephanfr/Packer.git
-rsync -a /tmp/Packer/RPi/ /home/$DEV_USERNAME/packer-builder-arm/
+sudo -u $DEV_USERNAME git clone https://github.com/stephanfr/Packer.git
+sudo -u $DEV_USERNAME rsync -a /tmp/Packer/RPi/ /home/$DEV_USERNAME/packer-builder-arm/
 

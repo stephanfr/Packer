@@ -26,7 +26,7 @@ apt-get install -y clang
 apt-get install -y clang-format
 apt-get install -y clang-tidy
 
-
+apt-get install -y gpiod
 
 
 if [ "$CPU_ARCH" == "ARMHF" ]; then

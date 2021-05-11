@@ -30,3 +30,4 @@ apt-get install -y git
 apt-get install -y clang
 apt-get install -y clang-format
 apt-get install -y lcov
+apt-get install -y npm

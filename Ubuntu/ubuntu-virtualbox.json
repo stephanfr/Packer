@@ -1,0 +1,76 @@
+{
+	"builders": [
+		{
+			"type": "virtualbox-iso",
+
+			"vm_name": "{{user `template_name`}}",
+            "cpus":  "{{ user `cores` }}",
+			"memory": "{{ user `memory` }}",
+			"guest_os_type": "Ubuntu_64",
+    		"nic_type": "virtio",
+			"disk_size": "{{ user `disk_size`}}",
+            "gfx_controller": "vmsvga",
+            "gfx_vram_size": "{{ user `vram`}}",
+            "vboxmanage": [ ["modifyvm", "{{.Name}}", "--hwvirtex", "on"], ["modifyvm", "{{.Name}}", "--nestedpaging", "on"] ],
+            "guest_additions_mode": "attach",
+
+			"ssh_timeout": "120m",
+			"ssh_password": "{{ user `ssh_password` }}",
+			"ssh_username": "{{ user `ssh_username` }}",
+
+            "iso_url": "{{user `iso_url`}}",
+            "iso_checksum": "{{user `iso_checksum_type`}}:{{user `iso_checksum`}}",
+            "http_directory": "./http",
+
+			"boot_wait": "5s",
+            "boot_command": [
+                "<esc><wait><esc><wait><f6><wait><esc><wait>",
+                "<bs><bs><bs><bs><bs>",
+                "autoinstall ds=nocloud-net;s=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ ",
+                "--- <enter>"
+            ]
+		}
+	],
+	"provisioners": [
+        {
+        	"type": "shell",
+        	"inline": [ "while [ ! -f /var/lib/cloud/instance/boot-finished ]; do echo 'Waiting for cloud-init...'; sleep 1; done" ]
+        },
+        {
+            "type": "file",
+            "source": "uploads",
+            "destination": "/tmp"
+        },
+        {
+        	"type": "shell",
+        	"inline": [ "chmod -R 777 /tmp/uploads" ]
+        },
+        {
+            "type": "shell",
+            "environment_vars": [
+                "VIRTUALBOX=true",
+                "DEBIAN_FRONTEND=noninteractive",
+                "UPDATE={{user `update`}}",
+                "DISABLE_IPV6={{user `disable_ipv6`}}",
+                "SSH_USERNAME={{user `ssh_username`}}",
+                "SSH_PASSWORD={{user `ssh_password`}}",
+                "http_proxy={{user `http_proxy`}}",
+                "https_proxy={{user `https_proxy`}}",
+                "no_proxy={{user `no_proxy`}}",
+                "DEV_USERNAME={{user `dev_username`}}",
+                "DEV_PASSWORD={{user `dev_password`}}",
+                "INSTALL_VSCODE_IDE={{user `install_vscode_ide`}}",
+                "INSTALL_MINIKUBE={{user `install_minikube`}}",
+                "UBUNTU_BUILD_NAME={{user `ubuntu_build_name`}}"
+            ],
+            "execute_command": "echo '{{user `ssh_password`}}'|{{.Vars}} sudo -E -S bash '{{.Path}}'",
+            "scripts": [
+                "script/mate_desktop.sh",
+                "script/dev_tools_base.sh",
+	            "script/setup_dev_user.sh",
+                "script/install_vscode.sh",
+                "script/cleanup.sh"
+            ]
+        }
+	]
+}

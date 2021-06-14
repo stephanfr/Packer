@@ -12,7 +12,7 @@
             "gfx_controller": "vmsvga",
             "gfx_vram_size": "{{ user `vram`}}",
             "vboxmanage": [ ["modifyvm", "{{.Name}}", "--hwvirtex", "on"], ["modifyvm", "{{.Name}}", "--nestedpaging", "on"] ],
-            "guest_additions_mode": "attach",
+            "format": "ova",
 
 			"ssh_timeout": "120m",
 			"ssh_password": "{{ user `ssh_password` }}",

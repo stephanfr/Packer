@@ -2,6 +2,7 @@
 autoinstall:
     version: 1
     locale: en_US
+    updates: all
     keyboard:
         layout: en
         variant: us
@@ -9,7 +10,7 @@ autoinstall:
         layout:
             name: direct
     identity:
-        hostname: Ubuntu1
+        hostname: Ubuntu20_04
         username: packer
         password: $6$rounds=4096$8dkK1P/oE$2DGKKt0wLlTVJ7USY.0jN9du8FetmEr51yjPyeiR.zKE3DGFcitNL/nF1l62BLJNR87lQZixObuXYny.Mf17K1
     ssh:

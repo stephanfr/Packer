@@ -29,6 +29,8 @@ apt-get install -y clang-tidy
 apt-get install -y gpiod
 apt-get install -y libgpiod-dev
 
+pip install setuptools
+
 
 if [ "$CPU_ARCH" == "ARMHF" ]; then
     export CFLAGS="-D_FILE_OFFSET_BITS=64"
@@ -37,7 +39,7 @@ fi
 
 #
 #   Make CMake.  The raspbian repos have old versions and we need at least 3.16 for VS Code
-#       This will run a paralell make assuming 2 cores.  If more are available, bump
+#       This will run a parallel make assuming 3 cores.  If more are available, bump
 #       up the value of CMAKE_BUILD_PARALLEL_LEVEL, --parallel and -j to a value
 #       of the number of cores + 1.
 #   

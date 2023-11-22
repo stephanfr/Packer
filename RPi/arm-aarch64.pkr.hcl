@@ -1,4 +1,10 @@
 
+variable "cmake_version" {
+  type    = string
+  default = "cmake-3.27.8"
+}
+
+
 variable "catch2_url" {
   type    = string
   default = "https://github.com/catchorg/Catch2.git"
@@ -6,12 +12,7 @@ variable "catch2_url" {
 
 variable "cmake_url" {
   type    = string
-  default = "https://cmake.org/files/v3.19/cmake-3.19.4.tar.gz"
-}
-
-variable "cmake_version" {
-  type    = string
-  default = "cmake-3.19.4"
+  default = "https://cmake.org/files/v3.19/${var.cmake_version}.tar.gz"
 }
 
 variable "cpu_arch" {
@@ -31,7 +32,7 @@ variable "dev_username" {
 
 variable "googletest_url" {
   type    = string
-  default = "https://github.com/google/googletest.git -b release-1.10.0"
+  default = "https://github.com/google/googletest.git -b release-1.13.0"
 }
 
 variable "image_file_url" {
@@ -87,10 +88,14 @@ variable "wifi_ssid" {
 source "arm" "QEMUBuilder" {
   file_checksum_type    = "sha256"
   file_checksum_url     = "${var.image_file_url}.sha256"
-  file_target_extension = "zip"
+  file_target_extension = "xz"
+  file_unarchive_cmd    = ["xz", "--decompress", "$ARCHIVE_PATH"]
   file_urls             = ["${var.image_file_url}"]
   image_build_method    = "resize"
   image_chroot_env      = ["PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"]
+  image_path            = "${var.output_image_path}"
+  image_size            = "8G"
+  image_type            = "dos"
   image_partitions {
     filesystem   = "vfat"
     mountpoint   = "/boot"
@@ -107,9 +112,6 @@ source "arm" "QEMUBuilder" {
     start_sector = "532480"
     type         = "83"
   }
-  image_path                   = "${var.output_image_path}"
-  image_size                   = "4G"
-  image_type                   = "dos"
   qemu_binary_destination_path = "/usr/bin/qemu-aarch64-static"
   qemu_binary_source_path      = "/usr/bin/qemu-aarch64-static"
 }

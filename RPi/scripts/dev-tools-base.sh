@@ -1,35 +1,36 @@
 #!/bin/bash -eu
 
-apt-get update
-apt-get upgrade -y
+apt update
+apt upgrade -y
 
-apt-get install -y apt-transport-https
-apt-get install -y ca-certificates
-apt-get install -y gnupg
-apt-get install -y software-properties-common
+apt install -y apt-transport-https
+apt install -y ca-certificates
+apt install -y gnupg
+apt install -y software-properties-common
 
-apt-get update
+apt update
 
-apt-get install -y wget
-apt-get install -y build-essential
-apt-get install -y openssl
-apt-get install -y libssl-dev
-apt-get install -y curl
-apt-get install -y python3
-apt-get install -y python3-dev
-apt-get install -y python3-pip
-apt-get install -y libtool
-apt-get install -y autoconf
-apt-get install -y automake
-apt-get install -y git
-apt-get install -y clang
-apt-get install -y clang-format
-apt-get install -y clang-tidy
+apt install -y git
 
-apt-get install -y gpiod
-apt-get install -y libgpiod-dev
+apt install -y wget
+apt install -y build-essential
+apt install -y openssl
+apt install -y libssl-dev
+apt install -y curl
+apt install -y libtool
+apt install -y autoconf
+apt install -y automake
+apt install -y clang
+apt install -y clang-format
+apt install -y clang-tidy
 
-pip install setuptools
+apt install -y python3
+apt install -y python3-dev
+apt install -y python3-pip
+apt install -y python3-distutils
+
+apt install -y gpiod
+apt install -y libgpiod-dev
 
 
 if [ "$CPU_ARCH" == "ARMHF" ]; then
@@ -103,7 +104,7 @@ fi
 if [ ! -z "$CATCH2_URL" ]; then
 
     cd /tmp
-    git clone https://github.com/catchorg/Catch2.git
+    git clone ${CATCH2_URL}
     cd Catch2
     cmake -Bbuild -H. -DBUILD_TESTING=OFF
     cmake --build build/ --target install

@@ -12,7 +12,7 @@ variable "catch2_url" {
 
 variable "cmake_url" {
   type    = string
-  default = "https://cmake.org/files/v3.19/${var.cmake_version}.tar.gz"
+  default = "https://cmake.org/files/v3.27/cmake-3.27.8.tar.gz"
 }
 
 variable "cpu_arch" {
@@ -32,7 +32,7 @@ variable "dev_username" {
 
 variable "googletest_url" {
   type    = string
-  default = "https://github.com/google/googletest.git -b release-1.13.0"
+  default = "https://github.com/google/googletest.git -b v1.14.x"
 }
 
 variable "image_file_url" {
@@ -156,6 +156,7 @@ build {
   }
 
   post-processor "shell-local" {
+    inline_shebang = "/bin/bash -eu"
     inline = ["if [[ -d /tmp/nfsloc ]]; then umount -f /tmp/nfsloc; rm -rf /tmp/nfsloc; fi", "mkdir /tmp/nfsloc", "mount -t nfs ${var.nfs_copy_location} /tmp/nfsloc", "cp ${var.output_image_path} /tmp/nfsloc/", "umount /tmp/nfsloc", "rm -rf /tmp/nfsloc"]
   }
 }

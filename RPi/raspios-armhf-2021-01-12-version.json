@@ -1,4 +1,0 @@
-{ 
-    "image_file_url" : "https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2021-01-12/2021-01-11-raspios-buster-armhf.zip",
-        "output_image_path" : "raspios-armhf.img"
-}

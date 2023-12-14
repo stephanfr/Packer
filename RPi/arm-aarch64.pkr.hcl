@@ -4,7 +4,6 @@ variable "cmake_version" {
   default = "cmake-3.27.8"
 }
 
-
 variable "catch2_url" {
   type    = string
   default = "https://github.com/catchorg/Catch2.git"
@@ -14,6 +13,18 @@ variable "cmake_url" {
   type    = string
   default = "https://cmake.org/files/v3.27/cmake-3.27.8.tar.gz"
 }
+
+variable "googletest_url" {
+  type    = string
+  default = "https://github.com/google/googletest.git -b v1.14.x"
+}
+
+variable "pigpio_url" {
+  type    = string
+  default = "https://github.com/joan2937/pigpio/archive/master.zip"
+}
+
+
 
 variable "cpu_arch" {
   type    = string
@@ -28,11 +39,6 @@ variable "dev_password" {
 variable "dev_username" {
   type    = string
   default = ""
-}
-
-variable "googletest_url" {
-  type    = string
-  default = "https://github.com/google/googletest.git -b v1.14.x"
 }
 
 variable "image_file_url" {
@@ -52,11 +58,6 @@ variable "nfs_copy_location" {
 
 variable "output_image_path" {
   type = string
-}
-
-variable "pigpio_url" {
-  type    = string
-  default = "https://github.com/joan2937/pigpio/archive/master.zip"
 }
 
 variable "ssh_key_filename" {

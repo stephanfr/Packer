@@ -42,7 +42,9 @@ The Packer .exe is a single file, I just drop it into the /Packer/RPi directory 
 
 To build a template, use following command line should look something like (make the correct subsitutions for your environment) :
 
-sudo packer build -var 'wifi_ssid=???????' -var 'wifi_password=??????' -var 'dev_username=dev' -var 'dev_password=password' -var 'new_pi_password=newpwd' -var-file raspios_lite_armhf-2021-01-12-version.json armhf.json
+~~~
+sudo packer build -var 'wifi_ssid=???????' -var 'wifi_password=??????' -var 'dev_username=dev' -var 'dev_password=password' -var 'new_pi_password=newpwd' -var-file raspios-arm64-2023-10-10-bookworm.version.pkrvars.hcl arm-aarch64.pkr.hcl
+~~~
 
 Since this script uses the QEMU builder, it must be run with elevated privileges.
 

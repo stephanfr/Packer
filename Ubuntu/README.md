@@ -59,7 +59,7 @@ with names 'ubuntu-xx-xx-x-version.json' which are located in subdirectories wit
 To build a template, use following command line should look something like (make the correct subsitutions for your environment) :
 
 ~~~
-Packer build -var "dev_username=????" -var "dev_password=password" -var "proxmox_host=????" -var "proxmox_node_name=????" -var "proxmox_api_user=Packer@pve" -var "proxmox_api_password=ubuntu" -var "ssh_username=Packer" -var "ssh_password=ubuntu" -var "vmid=????" -var "http_interface=Wi-Fi" -var-file="./20.04/ubuntu-20-04-version.pkrvars.hcl" -var-file="./proxmox/proxmox-config.pkrvars.hcl" -var-file="vm_personalization.pkrvars.hcl" ./proxmox/ubuntu-proxmox.pkr.hcl
+packer build -var "dev_username=????" -var "dev_password=password" -var "proxmox_host=????" -var "proxmox_node_name=????" -var "proxmox_api_user=packer@pve" -var "proxmox_api_password=password" -var "ssh_username=packer" -var "ssh_password=ubuntu" -var "vmid=????" -var "http_interface=Wi-Fi" -var-file="./22.04/ubuntu-22-04-version.pkrvars.hcl" -var-file="./proxmox/proxmox-config.pkrvars.hcl" -var-file="vm_personalization.pkrvars.hcl" ./proxmox/ubuntu-proxmox.pkr.hcl
 ~~~
 
 The template build process may take a while as the OS install also updates packages.

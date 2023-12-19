@@ -1,6 +1,6 @@
 # Raspberry Pi Packer Specifications
  
-The intent of this project is to enable users to build a complete, customized Raspberry Pi image in an X86 VM.  This specification will pre-configure the pi image with wifi connectivity and includes support for remote C/C++ development from VSCode and library support for C/C++ apps using the PIGPIO library.  This specification relies on Mateusz Kaczanowski's PackerBuilderArm Project (https://github.com/mkaczanowski/packer-builder-arm) which extends Packer to support user mode QEMU ARM emulation to launch the ARM image on an X86 VM and then customize that image.  This elegant solution permits the creation of complete, ready-to-boot Raspbery Pi images with additional libraries and tooling pre-installed.
+This project enables users to build complete, customized Raspberry Pi images in an X86 VM.  This specification will pre-configure the pi image with wifi connectivity and includes support for remote C/C++ development from VSCode and library support for C/C++ apps using the PIGPIO library.  This specification relies on Mateusz Kaczanowski's PackerBuilderArm Project (https://github.com/mkaczanowski/packer-builder-arm) which extends Packer to support user mode QEMU ARM emulation to launch the ARM image on an X86 VM and then customize that image.  This elegant solution permits the creation of complete, ready-to-boot Raspbery Pi images with additional libraries and tooling pre-installed.
 
 This specification will create a non-root 'Dev User' with a default password.  The development user must login to the image once to change the password from the default specified in the script command line.  This behavior can be modified and the forced password expiration eliminated.  Additionally, this specification provides the ability to upload a public RSA key which can be used for SSH authentication without passwords.  The RSA key is configured for the development user.
 
@@ -21,8 +21,8 @@ Values to provide :
 
     "wifi_ssid" - if provided, the SSID of the wifi network
     "wifi_password" - if provided, the password for the wifi network, if not provided the network is treated as open
-    "dev_username" - if provided, development username; password must be changed on first login
-    "dev_password" - initial password
+    "dev_username" - if provided, development username
+    "dev_password" - initial password - must be changed on first login
     "new_pi_password" - if provided, new password for pi user
     "ssh_key_filename" - filename for public key to be copied from the upload folder; defaults to "id_rsa.pub"
     "nfs_copy_location" - an NFS mount to which the completed image will be copied
@@ -30,17 +30,16 @@ Values to provide :
     "cmake_version" - version id of CMake to build, defaults to CMake version 3.19.4
     "pigpio_url" - URL for PIGPIO library, defaults to current master - pass empty URL to not build library
 
-The script assumes that there will be a directory named 'uploads' in the same directory holding the packer json file and in the uploads directory.  Optionally,
-if a file named 'rsa.pub' which holds the public key for the development user who will be connecting to the VM is present in that directory, it will be
+The script assumes that there will be a directory named 'uploads' in the same directory holding the packer hcl file and in the uploads directory.  Optionally, if a file named 'rsa.pub' which holds the public key for the development user who will be connecting to the VM is present in that directory, it will be
 added as an ssh key for the user.  The 'uploads' directory must be created or the script will fail.
 
 There is a post processor which will copy the image off the VM to a NFS location such that it can be picked up and flashed to an SD.  If you do not wish to copy the image, just remove the post-processor.
 
-The image specific values for a specific raspios version can be found in json files with names 'raspios_label-xx-xx-x-version.json'.
+The image specific values for a specific raspios version can be found in json files with names 'raspios_label-xx-xx-x-version.pkrvars.hcl'.
 
-The Packer .exe is a single file, I just drop it into the /Packer/RPi directory and use the app for there.  These scripts were built with Packer v1.6.6.
+The Packer .exe is a single file, I just drop it into the /Packer/RPi directory and use the app from there.
 
-To build a template, use following command line should look something like (make the correct subsitutions for your environment) :
+To build a template, command line should look something like (make the correct subsitutions for your environment) :
 
 ~~~
 sudo packer build -var 'wifi_ssid=???????' -var 'wifi_password=??????' -var 'dev_username=dev' -var 'dev_password=password' -var 'new_pi_password=newpwd' -var-file raspios-arm64-2023-10-10-bookworm.version.pkrvars.hcl arm-aarch64.pkr.hcl

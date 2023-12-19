@@ -28,7 +28,7 @@ Below are values currently empty in the variable files which will need to
 be assigned for the spec and scripts to work properly.  Alternatively, these values
 can be set on the command line as shown on the example at the end of this section.
 
-Values to change in 'proxmox-config.json' :
+Values to change in 'proxmox-config.pkrvars.hcl' :
 
     "proxmox_host" - set to the IP Address or URL of your Proxmox host
     "proxmox_node_name" - name of the node on which to create the template
@@ -39,7 +39,7 @@ Values to change in 'proxmox-config.json' :
 The rest of the values should be pretty self-explanatory.  The main ones which
 one might want to change are the version #s for ubuntu.  Beware the *proxmox_node_name*, this name must match the name of the node EXACTLY and must be resolvable by DNS.  If both requirements are not met, you will get misleading error messages.
 
-Values to change in 'vm_personalization.json' :
+Values to change in 'vm_personalization.pkrvars.hcl' :
 
     "vm_name" - name for the template
     "dev_username" - development username
@@ -53,8 +53,8 @@ if a file named 'rsa.pub' which holds the public key for the development
 user who will be connecting to the VM is present in that directory, it will be
 added as an ssh key for the user.
 
-The image specific values for a specific Ubuntu version can be found in json files
-with names 'ubuntu-xx-xx-x-version.json' which are located in subdirectories with names matching the major release numbers.  Currently both Ubuntu 20.04 and 22.04 are supported.
+The image specific values for a specific Ubuntu version can be found in pkrvars.hcl files
+with names 'ubuntu-xx-xx-x-version.pkrvars.hcl' which are located in subdirectories with names matching the major release numbers.  Currently both Ubuntu 20.04 and 22.04 are supported.
 
 To build a template, use following command line should look something like (make the correct subsitutions for your environment) :
 
@@ -64,12 +64,12 @@ packer build -var "dev_username=????" -var "dev_password=password" -var "proxmox
 
 The template build process may take a while as the OS install also updates packages.
 
-If the install seems to stall and the ssh shell is never available, it might be necessary to set the variable *http_interface* to the interface of on which the http service for the autoinstaller should be exposed.  Packer is not super-smart about choosing interfaces, so it is possible the http server could end up on a VPN interface or some other private interface.
+If the install seems to stall and the ssh shell is never available, it might be necessary to set the variable *http_interface* (as shown above) to the interface of on which the http service for the autoinstaller should be exposed.  Packer is not super-smart about choosing interfaces, so it is possible the http server could end up on a VPN interface or some other private interface.
 
 
 ## Proxmox RPI Builder
 
-The Proxmox builder can also produce VM images prepared to build RPi images using QEMU.  The advantage of this approach is that all the build and configure activity occurs on an 86-X64 server and the final product is a bootable, fully prepared RPi image with pre-configured WiFi and build tools that simply needs to be placed on an SD card.
+The Proxmox builder can also produce VM images prepared to build RPi images using QEMU.  The advantage of this approach is that all the build and configure activity occurs on an 86-X64 server and the final product is a bootable, fully prepared RPi image with pre-configured WiFi and build tools that simply needs to be placed on a SD card.
 
 Add the following variable to the command line for the Proxmox builder above and run it.  The go to the RPi directory of this repository for instructions on how to run the builder in the VM.
 

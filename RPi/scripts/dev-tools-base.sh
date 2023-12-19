@@ -27,7 +27,6 @@ apt-get install -y clang-tidy
 apt-get install -y python3
 apt-get install -y python3-dev
 apt-get install -y python3-pip
-apt-get install -y python3-distutils
 
 apt-get install -y gpiod
 apt-get install -y libgpiod-dev

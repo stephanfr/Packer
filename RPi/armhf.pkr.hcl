@@ -11,7 +11,7 @@ variable "catch2_url" {
 
 variable "cmake_url" {
   type    = string
-  default = "https://cmake.org/files/v3.19/cmake-3.27.8.tar.gz"
+  default = "https://cmake.org/files/3.27/cmake-3.27.8.tar.gz"
 }
 
 variable "googletest_url" {

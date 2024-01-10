@@ -9,4 +9,4 @@ The general design approach is to use Packer to build a 'vanilla' VM on either a
 
 For the RPI image build, there is a script which installs QEMU into the image and a set of tools which in turn permits the creation of RPI images in the QEMU ARM Virtual Machine and then customize that image - for example configuring WiFi.  This capability is derived from Mateusz Kaczanowski's PackerBuilderArm Project (https://github.com/mkaczanowski/packer-builder-arm).
 
-Each subproject has its own README files with detailed instructions and examples.
+Each subproject has its own README files with additional documentation and examples.

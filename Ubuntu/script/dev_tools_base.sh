@@ -39,12 +39,16 @@ then
     apt install -y libtool
     apt install -y autoconf
     apt install -y automake
+    apt install -y autotools-dev
     apt install -y git
     apt install -y clang
     apt install -y clang-format
     apt install -y clang-tidy
     apt install -y lcov
     apt install -y npm
+    apt install -y wxhexeditor
+    apt install -y doxygen
+    apt install -y mtools
 
     python3 -m pip install virtualenv
 

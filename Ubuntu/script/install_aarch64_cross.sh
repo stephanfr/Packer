@@ -31,16 +31,17 @@ then
     sudo -u $DEV_USERNAME cp /home/$DEV_USERNAME/dev_tools/$ARM_TOOLCHAIN_NAME/aarch64-none-elf/include/c++/12.3.1/aarch64-none-elf/bits/cpu_defines.h /home/$DEV_USERNAME/dev/gcc-cross/aarch64-none-elf/aarch64-none-elf/include/bits/.
     sudo -u $DEV_USERNAME cp /home/$DEV_USERNAME/dev_tools/$ARM_TOOLCHAIN_NAME/aarch64-none-elf/include/c++/12.3.1/aarch64-none-elf/bits/os_defines.h /home/$DEV_USERNAME/dev/gcc-cross/aarch64-none-elf/aarch64-none-elf/include/bits/.
 
-    #   Install Catch2 for Unit Testing
+    #   Install cpputest for Unit Testing
 
-    sudo -u $DEV_USERNAME mkdir /home/$DEV_USERNAME/dev_tools/Catch2
-    sudo -u $DEV_USERNAME mkdir /home/$DEV_USERNAME/dev_tools/Catch2_build
+    sudo -u $DEV_USERNAME mkdir /home/$DEV_USERNAME/dev_tools/cpputest
+    sudo -u $DEV_USERNAME mkdir /home/$DEV_USERNAME/dev_tools/cpputest_build
 
-    cd /home/$DEV_USERNAME/dev_tools/Catch2_build
-    sudo -u $DEV_USERNAME git clone https://github.com/catchorg/Catch2.git
+    cd /home/$DEV_USERNAME/dev_tools/cpputest_build
+    sudo -u $DEV_USERNAME git clone https://github.com/cpputest/cpputest.git
 
-    cd /home/$DEV_USERNAME/dev_tools/Catch2_build/Catch2
-    sudo -u $DEV_USERNAME cmake -Bbuild -H. -DBUILD_TESTING=OFF -DCMAKE_INSTALL_PREFIX=/home/$DEV_USERNAME/dev_tools/Catch2
-    sudo -u $DEV_USERNAME cmake --build build/ --target install
+    cd /home/$DEV_USERNAME/dev_tools/cpputest_build/cpputest
+    sudo -u $DEV_USERNAME autoreconf .. -i
+    sudo -u $DEV_USERNAME ../configure
+    sudo -u $DEV_USERNAME make
 
 fi
